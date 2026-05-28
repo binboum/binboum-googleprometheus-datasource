@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
+  <title>Google Managed Service for Prometheus</title>
+  <!-- Outer ring (Google blue) -->
+  <circle cx="64" cy="64" r="56" fill="none" stroke="#4285F4" stroke-width="6"/>
+  <!-- Prometheus flame (orange) -->
+  <path d="M64 22
+           C 72 38, 86 44, 84 60
+           C 100 56, 96 80, 80 84
+           C 92 92, 82 108, 64 108
+           C 46 108, 36 92, 48 84
+           C 32 80, 28 56, 44 60
+           C 42 44, 56 38, 64 22 Z"
+        fill="#E6522C"/>
+  <!-- Inner highlight -->
+  <ellipse cx="64" cy="78" rx="12" ry="14" fill="#FFC700"/>
+</svg>

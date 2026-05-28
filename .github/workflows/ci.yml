@@ -1,0 +1,93 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  frontend:
+    name: Frontend (lint / type / test / build)
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Harden runner
+        if: ${{ !env.ACT }}
+        uses: step-security/harden-runner@9af89fc71515a100421586dfdb3dc9c984fbf411 # v2.19.4
+        with:
+          egress-policy: audit
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6.4.0
+        with:
+          node-version: 20
+      - name: Enable corepack
+        run: corepack enable
+      - name: Install
+        run: yarn install --immutable
+      - name: Lint
+        run: yarn lint
+      - name: Typecheck
+        run: yarn typecheck
+      - name: Test
+        run: yarn test:ci
+      - name: Build
+        run: yarn build
+
+  backend:
+    name: Backend (vet / test / build)
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Harden runner
+        if: ${{ !env.ACT }}
+        uses: step-security/harden-runner@9af89fc71515a100421586dfdb3dc9c984fbf411 # v2.19.4
+        with:
+          egress-policy: audit
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+      - uses: actions/setup-go@4a3601121dd01d1626a1e23e37211e3254c1c06c # v6.4.0
+        with:
+          go-version-file: go.mod
+          cache: true
+      - name: Vet
+        run: go vet ./...
+      - name: Test
+        run: go test -race -coverprofile=cover.out ./...
+      - name: Govulncheck
+        run: |
+          go install golang.org/x/vuln/cmd/govulncheck@latest
+          govulncheck ./...
+      - name: Build (mage)
+        run: |
+          go install github.com/magefile/mage@latest
+          mage -v build:backend
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: backend-coverage
+          path: cover.out
+
+  levitate:
+    name: API compatibility (levitate)
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Harden runner
+        if: ${{ !env.ACT }}
+        uses: step-security/harden-runner@9af89fc71515a100421586dfdb3dc9c984fbf411 # v2.19.4
+        with:
+          egress-policy: audit
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6.4.0
+        with:
+          node-version: 20
+      - name: Enable corepack
+        run: corepack enable
+      - name: Install
+        run: yarn install --immutable
+      - name: Levitate
+        run: yarn levitate:is-compatible
