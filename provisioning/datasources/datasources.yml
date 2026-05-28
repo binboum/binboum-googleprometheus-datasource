@@ -1,0 +1,56 @@
+apiVersion: 1
+
+# Local-dev examples for the Google Managed Service for Prometheus plugin.
+# Replace the URL with your real GMP endpoint:
+#   https://monitoring.googleapis.com/v1/projects/<PROJECT_ID>/location/global/prometheus
+#
+# The local docker-compose ships a vanilla Prometheus at localhost:9090 so
+# `Local Prom` can be used to smoke-test the plugin without GCP credentials.
+
+datasources:
+  # 1. Plain Prometheus, no Google auth. Lets you confirm the plugin works
+  #    end-to-end against an unauthenticated target before turning auth on.
+  - name: Local Prom
+    uid: googleprom-local
+    type: binboum-googleprometheus-datasource
+    access: proxy
+    url: http://prometheus:9090
+    editable: true
+    jsonData:
+      httpMethod: POST
+
+  # 2. ADC: relies on credentials discoverable from the Grafana process's
+  #    environment. Works out of the box on GCE/GKE WI/Cloud Run, or
+  #    locally when GOOGLE_APPLICATION_CREDENTIALS points at a key file.
+  - name: GMP (ADC)
+    uid: googleprom-adc
+    type: binboum-googleprometheus-datasource
+    access: proxy
+    url: https://monitoring.googleapis.com/v1/projects/REPLACE_ME/location/global/prometheus
+    editable: true
+    jsonData:
+      httpMethod: POST
+      googleAuthType: adc
+
+  # 3. Service Account JSON: pasted key contents. Recommended off-GCP
+  #    or for explicit per-DS credentials.
+  - name: GMP (Service Account)
+    uid: googleprom-sa
+    type: binboum-googleprometheus-datasource
+    access: proxy
+    url: https://monitoring.googleapis.com/v1/projects/REPLACE_ME/location/global/prometheus
+    editable: true
+    jsonData:
+      httpMethod: POST
+      googleAuthType: serviceAccountJson
+    secureJsonData:
+      googleServiceAccountJson: |
+        {
+          "type": "service_account",
+          "project_id": "REPLACE_ME",
+          "private_key_id": "...",
+          "private_key": "-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----\n",
+          "client_email": "sa@REPLACE_ME.iam.gserviceaccount.com",
+          "client_id": "...",
+          "token_uri": "https://oauth2.googleapis.com/token"
+        }
