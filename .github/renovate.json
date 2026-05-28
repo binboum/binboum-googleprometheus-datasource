@@ -1,0 +1,36 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended",
+    ":semanticCommits",
+    "helpers:pinGitHubActionDigests"
+  ],
+  "labels": ["dependencies"],
+  "schedule": ["before 6am on monday"],
+  "packageRules": [
+    {
+      "description": "Grafana packages (npm + go)",
+      "matchPackageNames": ["@grafana/**", "github.com/grafana/**"],
+      "groupName": "grafana"
+    },
+    {
+      "description": "Google Cloud / OAuth backend dependencies",
+      "matchPackageNames": [
+        "cloud.google.com/**",
+        "google.golang.org/**",
+        "golang.org/x/oauth2**"
+      ],
+      "groupName": "google-cloud"
+    },
+    {
+      "description": "TypeScript type definitions",
+      "matchPackageNames": ["@types/**"],
+      "groupName": "types"
+    },
+    {
+      "description": "Keep pinned GitHub Actions digests up to date together",
+      "matchManagers": ["github-actions"],
+      "groupName": "github-actions"
+    }
+  ]
+}
