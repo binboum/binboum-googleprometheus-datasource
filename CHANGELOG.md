@@ -2,6 +2,13 @@
 
 ## 0.1.0 (2026-05-28)
 
+
+### Features
+
+* initial release of the Google Managed Service for Prometheus data source ([#1](https://github.com/binboum/binboum-googleprometheus-datasource/issues/1)) ([538d046](https://github.com/binboum/binboum-googleprometheus-datasource/commit/538d046acd1eb69781e65814f1dd252d437b0020))
+
+## 0.1.0 (2026-05-28)
+
 Initial release of the Google Managed Service for Prometheus data source for Grafana.
 
 ### Features
