@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.1](https://github.com/binboum/binboum-googleprometheus-datasource/compare/v0.1.0...v0.1.1) (2026-05-29)
+
+
+### Bug Fixes
+
+* README catalog links and release hardening ([#5](https://github.com/binboum/binboum-googleprometheus-datasource/issues/5)) ([aa7623f](https://github.com/binboum/binboum-googleprometheus-datasource/commit/aa7623f269063263f610ea5ebdceef298ec4cc58))
+
 ## 0.1.0 (2026-05-28)
 
 

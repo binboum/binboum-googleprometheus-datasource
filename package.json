@@ -1,6 +1,6 @@
 {
   "name": "binboum-googleprometheus-datasource",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Query Google Managed Service for Prometheus metrics in Grafana with native Google Cloud authentication",
   "repository": {
     "type": "git",
