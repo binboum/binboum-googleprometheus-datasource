@@ -1,7 +1,7 @@
 # Google Managed Service for Prometheus — Grafana data source
 
 [![CI](https://github.com/binboum/binboum-googleprometheus-datasource/actions/workflows/ci.yml/badge.svg)](https://github.com/binboum/binboum-googleprometheus-datasource/actions/workflows/ci.yml)
-[![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
+[![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](https://github.com/binboum/binboum-googleprometheus-datasource/blob/main/LICENSE)
 [![Grafana](https://img.shields.io/badge/Grafana-%E2%89%A5%2011.5.0-orange.svg)](https://grafana.com/grafana/download)
 
 Query **[Google Managed Service for Prometheus (GMP)](https://cloud.google.com/stackdriver/docs/managed-prometheus)**
@@ -21,7 +21,7 @@ Prometheus data source.
   build-info all work through the upstream `@grafana/prometheus` client, with no
   change to how you write or run queries.
 
-![Querying a Prometheus endpoint through the data source in Explore](src/img/screenshots/explore-query.png)
+![Querying a Prometheus endpoint through the data source in Explore](https://raw.githubusercontent.com/binboum/binboum-googleprometheus-datasource/main/src/img/screenshots/explore-query.png)
 
 ## Install
 
@@ -51,7 +51,7 @@ unzip binboum-googleprometheus-datasource-0.1.0.zip -d /var/lib/grafana/plugins/
 export GF_PLUGINS_ALLOW_LOADING_UNSIGNED_PLUGINS=binboum-googleprometheus-datasource
 ```
 
-To build from source instead, see [Development](#development).
+To build from source instead, see [CONTRIBUTING.md](https://github.com/binboum/binboum-googleprometheus-datasource/blob/main/CONTRIBUTING.md).
 
 ## Usage
 
@@ -97,7 +97,7 @@ auth, Forward OAuth Identity, TLS settings, custom headers.
 
   > Google Cloud authentication will override &lt;those methods&gt; for outgoing requests.
 
-![Google Cloud authentication on the data source config page](src/img/screenshots/config-google-auth.png)
+![Google Cloud authentication on the data source config page](https://raw.githubusercontent.com/binboum/binboum-googleprometheus-datasource/main/src/img/screenshots/config-google-auth.png)
 
 ### Health check
 
@@ -157,22 +157,14 @@ The config editor uses `DataSourceHttpSettingsOverhaul` from `@grafana/prometheu
 13.x, which ships with Grafana 11.5 and later. On older releases that component
 isn't exported, so the configuration editor fails to render.
 
-## Development
-
-```bash
-yarn install --immutable
-mage -v build:backend     # backend binaries into dist/
-yarn build                # frontend bundle into dist/
-yarn server               # docker compose: Grafana + Prometheus on :3000 (admin / admin)
-```
-
-See [docs/HISTORY.md](docs/HISTORY.md) for the data-flow diagram and background.
-
 ## Contributing & support
 
-Issues and pull requests are welcome — [CONTRIBUTING.md](CONTRIBUTING.md) covers
-the dev loop, the full test and lint matrix, and how to file a useful bug report.
-Report security issues privately via [SECURITY.md](SECURITY.md), not a public issue.
+Issues and pull requests are welcome — [CONTRIBUTING.md](https://github.com/binboum/binboum-googleprometheus-datasource/blob/main/CONTRIBUTING.md)
+covers the development setup, build, and the full test and lint matrix, plus how
+to file a useful bug report; see [docs/HISTORY.md](https://github.com/binboum/binboum-googleprometheus-datasource/blob/main/docs/HISTORY.md)
+for the design background. Report security issues privately via
+[SECURITY.md](https://github.com/binboum/binboum-googleprometheus-datasource/blob/main/SECURITY.md),
+not a public issue.
 
 ## Security
 
@@ -185,11 +177,11 @@ Report security issues privately via [SECURITY.md](SECURITY.md), not a public is
   Reconfiguring the data source advances `Updated`, invalidating the cached
   token; rotating the secret takes effect on the next request.
 
-To report a vulnerability, see [SECURITY.md](SECURITY.md).
+To report a vulnerability, see [SECURITY.md](https://github.com/binboum/binboum-googleprometheus-datasource/blob/main/SECURITY.md).
 
 ## License
 
-Apache-2.0 — see [LICENSE](LICENSE).
+Apache-2.0 — see [LICENSE](https://github.com/binboum/binboum-googleprometheus-datasource/blob/main/LICENSE).
 
 ## Trademarks
 
